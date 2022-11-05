@@ -1,7 +1,7 @@
 package proxy
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"regexp"
@@ -85,7 +85,7 @@ func (p *ProxyList) updateFromURL(source string, wg *sync.WaitGroup) {
 	}
 	defer resp.Body.Close()
 
-	html, err := ioutil.ReadAll(resp.Body)
+	html, err := io.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
 	}
