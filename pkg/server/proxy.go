@@ -26,5 +26,8 @@ func Listen(port int, iterator proxy.ProxyIterator) {
 	}
 
 	log.Println("Serving at port", port)
-	http.ListenAndServe(fmt.Sprintf("localhost:%d", port), middleProxy)
+	err := http.ListenAndServe(fmt.Sprintf("localhost:%d", port), middleProxy)
+	if err != nil {
+		panic(err)
+	}
 }
