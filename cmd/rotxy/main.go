@@ -29,10 +29,13 @@ func (v VersionFlag) BeforeApply(app *kong.Kong) error {
 }
 
 type CLI struct {
-	Port     int         `help:"Port to listen on." default:"8080" short:"p"`
-	Host     string      `help:"Host to listen on." default:"0.0.0.0" short:"h"`
-	Strategy string      `help:"Proxy strategy to use." default:"random" enum:"random,round-robin" short:"s"`
-	Version  VersionFlag `name:"version" help:"Print version information and quit"`
+	Verbose int         `help:"Enable verbose logging" short:"v" type:"counter"`
+	Version VersionFlag `name:"version" help:"Print version information and quit"`
+
+	Port     int    `help:"Port to listen on." default:"8080" short:"p"`
+	Host     string `help:"Host to listen on." default:"0.0.0.0" short:"h"`
+	Strategy string `help:"Proxy strategy to use." default:"random" enum:"random,round-robin" short:"s"`
+
 	// Download
 	Download bool          `help:"Download proxies from internal list." short:"d" group:"Download"`
 	FromFile []string      `help:"File containing proxies." type:"existingfile" short:"f" name:"from-file" group:"Download"`
@@ -47,6 +50,7 @@ type CLI struct {
 }
 
 func (c *CLI) Run() error {
+	log.Println(c.Verbose)
 	if !c.Download && c.FromFile == nil && len(c.FromURL) == 0 {
 		log.Println("No proxies specified. Use -d, -f or -u to specify proxies.")
 		return nil
@@ -78,7 +82,7 @@ func (c *CLI) Run() error {
 		go update(proxyList, c.Updelay, c.Prune, c.TLS, c.Timeout, c.Cycle)
 	}
 
-	server.Listen(c.Port, c.Host, proxy.Provider(c.Strategy, proxyList))
+	server.Listen(c.Port, c.Host, proxy.Provider(c.Strategy, proxyList), c.Verbose > 0)
 	return nil
 }
 

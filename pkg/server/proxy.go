@@ -11,9 +11,9 @@ import (
 	"github.com/mrmarble/rotxy/pkg/proxy"
 )
 
-func Listen(port int, host string, iterator proxy.ProxyIterator) {
+func Listen(port int, host string, iterator proxy.ProxyIterator, verbose bool) {
 	middleProxy := goproxy.NewProxyHttpServer()
-	middleProxy.Verbose = false
+	middleProxy.Verbose = verbose
 
 	middleProxy.ConnectDial = func(network, addr string) (net.Conn, error) {
 		proxy := iterator()
