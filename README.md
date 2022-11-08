@@ -34,7 +34,10 @@ A simple proxy rotator
 
 Flags:
   -h, --help                 Show context-sensitive help.
+  -v, --verbose=INT          Enable verbose logging
+      --version              Print version information and quit
   -p, --port=8080            Port to listen on.
+  -h, --host="0.0.0.0"       Host to listen on.
   -s, --strategy="random"    Proxy strategy to use.
 
 Download
