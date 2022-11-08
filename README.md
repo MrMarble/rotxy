@@ -9,7 +9,7 @@ Rotating Proxy Server
 
 [![golangci-lint](https://github.com/MrMarble/rotxy/actions/workflows/golangci.yml/badge.svg)](https://github.com/MrMarble/rotxy/actions/workflows/golangci.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mrmarble/rotxy)](https://goreportcard.com/report/github.com/mrmarble/rotxy)
-![Lines of code](https://img.shields.io/tokei/lines/github/mrmarble/rotxy)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/mrmarble/rotxy)
 </div>
 
 ---
@@ -22,7 +22,7 @@ I needed a proxy server that rotates the proxy used for each request. I couldn't
 
 ## How?
 
-Rotxy has 12 proxy providers built in. You can add your own by using the `--from-url` or `--from-file` flags. Rotxy will then rotate through all the available proxies for each connection.
+Rotxy has 12 **free** proxy providers built in. You can add your own by using the `--from-url` or `--from-file` flags. Rotxy will then rotate through all the available proxies for each connection.
 
 ## Usage
 
