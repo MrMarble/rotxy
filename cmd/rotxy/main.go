@@ -50,7 +50,6 @@ type CLI struct {
 }
 
 func (c *CLI) Run() error {
-	log.Println(c.Verbose)
 	if !c.Download && c.FromFile == nil && len(c.FromURL) == 0 {
 		log.Println("No proxies specified. Use -d, -f or -u to specify proxies.")
 		return nil
