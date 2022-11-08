@@ -11,7 +11,7 @@ import (
 	"github.com/mrmarble/rotxy/pkg/proxy"
 )
 
-func Listen(port int, iterator proxy.ProxyIterator) {
+func Listen(port int, host string, iterator proxy.ProxyIterator) {
 	middleProxy := goproxy.NewProxyHttpServer()
 	middleProxy.Verbose = false
 
@@ -25,8 +25,8 @@ func Listen(port int, iterator proxy.ProxyIterator) {
 		return middleProxy.NewConnectDialToProxy("http://"+proxy)(network, addr)
 	}
 
-	log.Println("Serving at port", port)
-	err := http.ListenAndServe(fmt.Sprintf("localhost:%d", port), middleProxy)
+	log.Printf("Listening at http://%s:%d", host, port)
+	err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), middleProxy)
 	if err != nil {
 		panic(err)
 	}

@@ -30,6 +30,7 @@ func (v VersionFlag) BeforeApply(app *kong.Kong) error {
 
 type CLI struct {
 	Port     int         `help:"Port to listen on." default:"8080" short:"p"`
+	Host     string      `help:"Host to listen on." default:"0.0.0.0" short:"h"`
 	Strategy string      `help:"Proxy strategy to use." default:"random" enum:"random,round-robin" short:"s"`
 	Version  VersionFlag `name:"version" help:"Print version information and quit"`
 	// Download
@@ -77,7 +78,7 @@ func (c *CLI) Run() error {
 		go update(proxyList, c.Updelay, c.Prune, c.TLS, c.Timeout, c.Cycle)
 	}
 
-	server.Listen(c.Port, proxy.Provider(c.Strategy, proxyList))
+	server.Listen(c.Port, c.Host, proxy.Provider(c.Strategy, proxyList))
 	return nil
 }
 
